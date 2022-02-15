@@ -8,7 +8,7 @@ rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 
 echo "[rabbitmq_erlang]
 name=rabbitmq_erlang
-baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/$basearch
+baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/\$basearch
 repo_gpgcheck=1
 gpgcheck=1
 enabled=1
@@ -32,7 +32,7 @@ metadata_expire=300
 
 [rabbitmq_server]
 name=rabbitmq_server
-baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/$basearch
+baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/\$basearch
 repo_gpgcheck=1
 gpgcheck=1
 enabled=1
