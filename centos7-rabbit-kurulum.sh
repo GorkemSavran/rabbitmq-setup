@@ -81,15 +81,20 @@ echo "Servis başlatılıyor.."
 echo "Kullanıcı ekleniyor.."
 
 rabbitmqctl add_user test test
+sleep 3
 
 rabbitmqctl set_user_tags test administrator
+sleep 3
 
 rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+sleep 3
 
 echo "Default kullanıcı siliniyor.."
 
 rabbitmqctl delete_user guest
+sleep 3
 
 echo "Managemen UI plugini devreye sokuluyor.."
 
 rabbitmq-plugins enable rabbitmq_management
+sleep 3
