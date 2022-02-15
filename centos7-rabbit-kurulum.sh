@@ -70,6 +70,11 @@ echo "Servis çalıştırmak için gerekli araçlar indiriliyor.."
 
 yum -y install initscripts
 
+echo "Managemen UI plugini devreye sokuluyor.."
+
+rabbitmq-plugins enable rabbitmq_management
+wait
+
 echo "Servis başlangıçta çalıştırılmak için ayarlanıyor.."
 
 chkconfig rabbitmq-server on
@@ -81,15 +86,15 @@ echo "Servis başlatılıyor.."
 echo "Kullanıcı ekleniyor.."
 
 rabbitmqctl add_user test test
+wait
 
 rabbitmqctl set_user_tags test administrator
+wait
 
 rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+wait
 
 echo "Default kullanıcı siliniyor.."
 
 rabbitmqctl delete_user guest
-
-echo "Managemen UI plugini devreye sokuluyor.."
-
-rabbitmq-plugins enable rabbitmq_management
+wait
