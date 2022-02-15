@@ -1,23 +1,18 @@
 #!/bin/bash
 
-## primary RabbitMQ signing key
 rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
-## modern Erlang repository
+
 rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
-## RabbitMQ server repository
+
 rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
 
-echo "##
-## Zero dependency Erlang
-##
-
-[rabbitmq_erlang]
+echo "[rabbitmq_erlang]
 name=rabbitmq_erlang
 baseurl=https://packagecloud.io/rabbitmq/erlang/el/7/$basearch
 repo_gpgcheck=1
 gpgcheck=1
 enabled=1
-# PackageCloud's repository key and RabbitMQ package signing key
+
 gpgkey=https://packagecloud.io/rabbitmq/erlang/gpgkey
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
@@ -35,17 +30,13 @@ sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300
 
-##
-## RabbitMQ server
-##
-
 [rabbitmq_server]
 name=rabbitmq_server
 baseurl=https://packagecloud.io/rabbitmq/rabbitmq-server/el/7/$basearch
 repo_gpgcheck=1
 gpgcheck=1
 enabled=1
-# PackageCloud's repository key and RabbitMQ package signing key
+
 gpgkey=https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
        https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 sslverify=1
@@ -65,7 +56,6 @@ metadata_expire=300" > /etc/yum.repos.d/rabbitmq.repo
 
 yum update -y
 
-## install these dependencies from standard OS repositories
 yum install socat logrotate -y
 
 yum install erlang rabbitmq-server -y
