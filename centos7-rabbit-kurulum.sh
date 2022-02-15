@@ -66,8 +66,6 @@ yum install socat logrotate -y
 
 yum install erlang rabbitmq-server -y
 
-rabbitmq-plugins enable rabbitmq_management
-
 echo "Servis çalıştırmak için gerekli araçlar indiriliyor.."
 
 yum -y install initscripts
@@ -91,3 +89,7 @@ rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
 echo "Default kullanıcı siliniyor.."
 
 rabbitmqctl delete_user guest
+
+echo "Managemen UI plugini devreye sokuluyor.."
+
+rabbitmq-plugins enable rabbitmq_management
