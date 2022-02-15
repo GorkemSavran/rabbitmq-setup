@@ -1,10 +1,14 @@
 #!/bin/bash
 
+echo "Verify key'ler ayarlanıyor.."
+
 rpm --import https://github.com/rabbitmq/signing-keys/releases/download/2.0/rabbitmq-release-signing-key.asc
 
 rpm --import https://packagecloud.io/rabbitmq/erlang/gpgkey
 
 rpm --import https://packagecloud.io/rabbitmq/rabbitmq-server/gpgkey
+
+echo "Repo oluşturuluyor.."
 
 echo "[rabbitmq_erlang]
 name=rabbitmq_erlang
@@ -54,6 +58,8 @@ sslverify=1
 sslcacert=/etc/pki/tls/certs/ca-bundle.crt
 metadata_expire=300" > /etc/yum.repos.d/rabbitmq.repo
 
+echo "Gerekli paketler indiriliyor.."
+
 yum update -y
 
 yum install socat logrotate -y
@@ -62,16 +68,26 @@ yum install erlang rabbitmq-server -y
 
 rabbitmq-plugins enable rabbitmq_management
 
+echo "Servis çalıştırmak için gerekli araçlar indiriliyor.."
+
 yum -y install initscripts
+
+echo "Servis başlangıçta çalıştırılmak için ayarlanıyor.."
 
 chkconfig rabbitmq-server on
 
+echo "Servis başlatılıyor.."
+
 /sbin/service rabbitmq-server start
+
+echo "Kullanıcı ekleniyor.."
 
 rabbitmqctl add_user test test
 
 rabbitmqctl set_user_tags test administrator
 
 rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+
+echo "Default kullanıcı siliniyor.."
 
 rabbitmqctl delete_user guest
